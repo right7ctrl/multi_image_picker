@@ -128,13 +128,16 @@ public class SwiftMultiImagePickerPlugin: NSObject, FlutterPlugin {
             }
 
             UIViewController.topViewController()?.bs_presentImagePickerController(vc, animated: true,
-                select: { (asset: PHAsset) -> Void in
+                select: { [weak vc](asset: PHAsset) -> Void in
                     totalImagesSelected += 1
                     
                     if let autoCloseOnSelectionLimit = options["autoCloseOnSelectionLimit"] {
                         if (!autoCloseOnSelectionLimit.isEmpty && autoCloseOnSelectionLimit == "true") {
                             if (maxImages == totalImagesSelected) {
-                                UIApplication.shared.sendAction(vc.doneButton.action!, to: vc.doneButton.target, from: self, for: nil)
+                                guard let wVC = vc else {
+                                    return
+                                }
+                                UIApplication.shared.sendAction(wVC.doneButton.action!, to: wVC.doneButton.target, from: self, for: nil)
                             }
                         }
                     }
