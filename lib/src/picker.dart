@@ -76,6 +76,10 @@ class MultiImagePicker {
       switch (e.code) {
         case "CANCELLED":
           throw NoImagesSelectedException(e.message);
+        case "PERMISSION_DENIED":
+          throw PermissionDeniedException(e.message);
+        case "PERMISSION_PERMANENTLY_DENIED":
+          throw PermissionPermanentlyDeniedExeption(e.message);
         default:
           throw e;
       }
