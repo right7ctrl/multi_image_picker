@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> loadAssets() async {
     List<Asset> resultList = List<Asset>();
-    String error = 'No Error Dectected';
+    String error = 'No Error Detected';
 
     try {
       resultList = await MultiImagePicker.pickImages(
