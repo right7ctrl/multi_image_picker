@@ -81,7 +81,17 @@ public class SwiftMultiImagePickerPlugin: NSObject, FlutterPlugin {
             }
             
             if selectedAssets.count > 0 {
-                let assets: PHFetchResult = PHAsset.fetchAssets(withLocalIdentifiers: selectedAssets, options: nil)
+
+                let options = PHFetchOptions()
+                 if #available(iOS 9.1, *) {
+                    let imagesPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+                    let liveImagesPredicate = NSPredicate(format: "(mediaSubtype & %d) != 0", PHAssetMediaSubtype.photoLive.rawValue)
+                    let compound = NSCompoundPredicate(orPredicateWithSubpredicates: [imagesPredicate, liveImagesPredicate])
+                    options.predicate = compound
+                }
+
+                let assets: PHFetchResult = PHAsset.fetchAssets(withLocalIdentifiers: selectedAssets, options: options)
+                
                 vc.defaultSelections = assets
             }
 
@@ -131,6 +141,7 @@ public class SwiftMultiImagePickerPlugin: NSObject, FlutterPlugin {
                 select: { [weak vc](asset: PHAsset) -> Void in
                     totalImagesSelected += 1
                     
+
                     if let autoCloseOnSelectionLimit = options["autoCloseOnSelectionLimit"] {
                         if (!autoCloseOnSelectionLimit.isEmpty && autoCloseOnSelectionLimit == "true") {
                             if (maxImages == totalImagesSelected) {
