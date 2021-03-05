@@ -44,7 +44,7 @@ class MultiImagePicker {
     }
 
     try {
-      final List<dynamic> images = await (_channel.invokeMethod(
+      final List<dynamic> images = await _channel.invokeMethod(
         'pickImages',
         <String, dynamic>{
           'maxImages': maxImages,
@@ -57,7 +57,7 @@ class MultiImagePicker {
               )
               .toList(),
         },
-      ) as FutureOr<List<dynamic>>);
+      );
       var assets = <Asset>[];
       for (var item in images) {
         var asset = Asset(
