@@ -59,7 +59,7 @@ class MultiImagePicker {
               .toList(),
         },
       ) as FutureOr<List<dynamic>>);
-      var assets = List<Asset>();
+      var assets = <Asset>[];
       for (var item in images) {
         var asset = Asset(
           item['identifier'],

@@ -11,7 +11,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Asset> images = List<Asset>();
+  List<Asset> images = <Asset>[];
   String _error = 'No Error Dectected';
 
   @override
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> loadAssets() async {
-    List<Asset> resultList = List<Asset>();
+    List<Asset> resultList = <Asset>[];
     String error = 'No Error Detected';
 
     try {
