@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: <Widget>[
             Center(child: Text('Error: $_error')),
-            RaisedButton(
+            ElevatedButton(
               child: Text("Pick images"),
               onPressed: loadAssets,
             ),
