@@ -58,6 +58,7 @@ class MultiImagePicker {
               .toList(),
         },
       );
+
       var assets = <Asset>[];
       for (var item in images) {
         var asset = Asset(

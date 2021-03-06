@@ -129,7 +129,7 @@ void main() {
 
       test('throws correct exception on cancel', () {
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
-          throw PlatformException(code: 'CANCELLED');
+          throw PlatformException(code: 'CANCELLED', message: 'Some error');
         });
 
         expect(
@@ -140,7 +140,8 @@ void main() {
 
       test('throws correct exception when permission denied', () {
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
-          throw PlatformException(code: 'PERMISSION_DENIED');
+          throw PlatformException(
+              code: 'PERMISSION_DENIED', message: 'Some error');
         });
 
         expect(
@@ -151,7 +152,8 @@ void main() {
 
       test('throws correct exception when permission permanently denied', () {
         channel.setMockMethodCallHandler((MethodCall methodCall) async {
-          throw PlatformException(code: 'PERMISSION_PERMANENTLY_DENIED');
+          throw PlatformException(
+              code: 'PERMISSION_PERMANENTLY_DENIED', message: 'Some error');
         });
 
         expect(
