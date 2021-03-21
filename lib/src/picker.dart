@@ -158,19 +158,25 @@ class MultiImagePicker {
 
   // Requests image metadata for a given [identifier]
   static Future<Metadata> requestMetadata(String? identifier) async {
-    Map<dynamic, dynamic> map = await (_channel.invokeMethod(
-      "requestMetadata",
-      <String, dynamic>{
-        "identifier": identifier,
-      },
-    ) as FutureOr<Map<dynamic, dynamic>>);
+    try {
+      dynamic value = await _channel.invokeMethod<FutureOr<Map<dynamic, dynamic>>>(
+        "requestMetadata",
+        <String, dynamic>{
+          "identifier": identifier
+        }
+      );
+      assert(value != null);
 
-    Map<String, dynamic> metadata = Map<String, dynamic>.from(map);
-    if (Platform.isIOS) {
-      metadata = _normalizeMetadata(metadata);
+      Map<dynamic, dynamic> map = Map<dynamic, dynamic>.from(value);
+      Map<String, dynamic> metadata = Map<String, dynamic>.from(map);
+      if (Platform.isIOS) {
+        metadata = _normalizeMetadata(metadata);
+      }
+
+      return Metadata.fromMap(metadata);
+    } catch (e) {
+      throw e;
     }
-
-    return Metadata.fromMap(metadata);
   }
 
   /// Normalizes the meta data returned by iOS.
