@@ -2,6 +2,6 @@ rootProject.name = 'multi_image_picker'
 
 sourceControl {
     gitRepository("https://github.com/right7ctrl/fishbun_image_picker.git") {
-        producesModule("com.sangcomz.fishbun")
+        producesModule("com.sangcomz:FishBun")
     }
 }
